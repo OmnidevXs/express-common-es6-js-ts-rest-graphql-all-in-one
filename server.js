@@ -17,9 +17,24 @@ app.use('/user/:id',(req,res,next) => {
 })
 
 // 路由和句柄函数（中间件系统），处理指向/user/:id的GET请求
+// app.get('/user/:id',(req,res,next)=>{
+//     console.log('USER');
+// })
+
 app.get('/user/:id',(req,res,next)=>{
-    console.log('USER');
+    if(req.params.id==11) next('route')
+    else next()
+},(req,res,next)=>{
+    // 渲染常规页面
+    res.json('regular')
 })
+
+// 处理/user/:id，渲染一个id为0的特殊页面
+app.get('/user/:id',(req,res,next)=>{
+    res.json('special')
+})
+
+
 
 // - 路由级中间件
 // - 错误处理中间件
